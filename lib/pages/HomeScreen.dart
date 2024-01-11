@@ -41,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
             : SafeArea(
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -69,40 +70,40 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.only(top: 16),
-                          child: ListView.builder(
-                              itemCount: categories.length,
-                              shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
+                          child: Wrap(
+                            direction: Axis.horizontal,
+                            children: categories
+                                .map(
+                                  (i) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: GestureDetector(
                                       child: Chip(
                                         label: Text(
-                                          categories[index].category,
-                                          style: const TextStyle(color: Colors.grey),
+                                          i.category,
+                                          style: const TextStyle(
+                                              color: Colors.grey),
                                         ),
                                         backgroundColor: Colors.white,
                                         elevation: 4,
                                         shadowColor: Colors.grey[50],
-                                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                        padding: const EdgeInsets.all(10),
                                         shape: const StadiumBorder(),
                                       ),
                                       onTap: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => EventListing(
-                                                      title: categories[index].category,
-                                                      data: categories[index].data,
+                                                builder: (context) =>
+                                                    EventListing(
+                                                      title: i.category,
+                                                      data: i.data,
                                                     )));
                                       },
                                     ),
                                   ),
-                                );
-                              }),
+                                )
+                                .toList(),
+                          ),
                         )
                       ],
                     ),
@@ -111,3 +112,43 @@ class _HomeScreenState extends State<HomeScreen> {
               ));
   }
 }
+// ListView.builder(
+//                                 itemCount: categories.length,
+//                                 shrinkWrap: true,
+//                                 physics: const ClampingScrollPhysics(),
+//                                 itemBuilder: (context, index) {
+//                                   return Padding(
+//                                     padding: const EdgeInsets.all(8.0),
+//                                     child: Align(
+//                                       alignment: Alignment.topLeft,
+//                                       child: GestureDetector(
+//                                         child: Chip(
+//                                           label: Text(
+//                                             categories[index].category,
+//                                             style: const TextStyle(
+//                                                 color: Colors.grey),
+//                                           ),
+//                                           backgroundColor: Colors.white,
+//                                           elevation: 4,
+//                                           shadowColor: Colors.grey[50],
+//                                           padding: const EdgeInsets.fromLTRB(
+//                                               20, 10, 20, 10),
+//                                           shape: const StadiumBorder(),
+//                                         ),
+//                                         onTap: () {
+//                                           Navigator.push(
+//                                               context,
+//                                               MaterialPageRoute(
+//                                                   builder: (context) =>
+//                                                       EventListing(
+//                                                         title: categories[index]
+//                                                             .category,
+//                                                         data: categories[index]
+//                                                             .data,
+//                                                       )));
+//                                         },
+//                                       ),
+//                                     ),
+//                                   );
+//                                 }),
+                         
