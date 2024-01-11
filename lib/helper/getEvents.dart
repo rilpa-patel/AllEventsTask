@@ -24,7 +24,8 @@ class EventList{
           element['eventname'].toString(),
           element['location'].toString(),
           element['event_url'].toString(),
-          element['thumb_url'].toString()
+          element['thumb_url'].toString(),
+          element['label'].toString()
         )
       );
     });

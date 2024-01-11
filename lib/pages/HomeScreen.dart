@@ -74,29 +74,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               itemBuilder: (context, index) {
-                                return Align(
-                                  alignment: Alignment.topLeft,
-                                  child: GestureDetector(
-                                    child: Chip(
-                                      label: Text(
-                                        categories[index].category,
-                                        style: const TextStyle(color: Colors.grey),
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: GestureDetector(
+                                      child: Chip(
+                                        label: Text(
+                                          categories[index].category,
+                                          style: const TextStyle(color: Colors.grey),
+                                        ),
+                                        backgroundColor: Colors.white,
+                                        elevation: 4,
+                                        shadowColor: Colors.grey[50],
+                                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                        shape: const StadiumBorder(),
                                       ),
-                                      backgroundColor: Colors.white,
-                                      elevation: 4,
-                                      shadowColor: Colors.grey[50],
-                                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                      shape: const StadiumBorder(),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => EventListing(
+                                                      title: categories[index].category,
+                                                      data: categories[index].data,
+                                                    )));
+                                      },
                                     ),
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => EventListing(
-                                                    title: categories[index].category,
-                                                    data: categories[index].data,
-                                                  )));
-                                    },
                                   ),
                                 );
                               }),

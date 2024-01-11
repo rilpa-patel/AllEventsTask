@@ -3,7 +3,8 @@ class EventModel{
   late String location;
   late String event_url;
   late String thumb_url;
+  late String label;
 
-  EventModel(this.eventname, this.location, this.event_url, this.thumb_url);
+  EventModel(this.eventname, this.location, this.event_url, this.thumb_url, this.label);
  
 }

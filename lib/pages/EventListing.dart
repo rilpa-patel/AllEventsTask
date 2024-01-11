@@ -51,19 +51,19 @@ class _EventListingState extends State<EventListing> {
         ],
       ),
       body: _loading
-          ? Center(
-              child: Container(
-                child: CircularProgressIndicator(),
-              ),
+          ? const Center(
+              child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
                 child: Column(
                   children: [
                     //blogs
                     Container(
-                      padding: EdgeInsets.only(top: 16),
+                      padding: const EdgeInsets.only(top: 16),
                       child: isListView ? buildListView() : buildGridView(),
                     )
                   ],
@@ -77,55 +77,66 @@ class _EventListingState extends State<EventListing> {
     return ListView.builder(
       itemCount: eventList.length,
       shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       itemBuilder: (context, index) {
         return GestureDetector(
           child: Card(
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
+                width: 100,
+                height: 100,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  
-                ),
-                child: Image.network(
-                  eventList[index].thumb_url,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: 5,
+                  ),
+                  image: DecorationImage(
+                    image: NetworkImage(eventList[index].thumb_url),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width / 1.6,
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(
                           style: DefaultTextStyle.of(context).style,
                           children: <TextSpan>[
                             TextSpan(
                               text: eventList[index].eventname,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
                             ),
-                          ]),
-                    ),
-                    // Text(
-                    //   eventList[index].eventname,
-                    //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    // ),
-                    Text(
-                      eventList[index].location,
-                    ),
-                  ],
+                          ],
+                        ),
+                      ),
+                      Text(eventList[index].label),
+                      RichText(
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: eventList[index].location,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ]),
           ),
-          // Text(eventList[index].eventname),
           onTap: () {
             Navigator.push(
                 context,
@@ -141,17 +152,70 @@ class _EventListingState extends State<EventListing> {
 
   Widget buildGridView() {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8.0,
         mainAxisSpacing: 8.0,
       ),
       itemCount: eventList.length,
       shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       itemBuilder: (context, index) {
         return GestureDetector(
-          child: Text(eventList[index].eventname),
+          child: Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.transparent,
+                      width: 5,
+                    ),
+                    image: DecorationImage(
+                      image: NetworkImage(eventList[index].thumb_url),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5, top: 5),
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: eventList[index].eventname,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ]),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(eventList[index].label),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: eventList[index].location,
+                          ),
+                        ]),
+                  ),
+                ),
+              ],
+            ),
+          ),
           onTap: () {
             Navigator.push(
                 context,
